@@ -22,10 +22,8 @@ logger.info("Starting bot")
 # Загружаем конфиг в переменную config
 config: Config = load_config()
 
-default = DefaultBotProperties()
 
 # Инициализируем бот и диспетчер
-# bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
 bot = Bot(
     token=config.tg_bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
 )
