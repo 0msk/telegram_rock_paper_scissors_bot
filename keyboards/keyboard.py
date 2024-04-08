@@ -1,21 +1,21 @@
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
+from lexicon.lexicon_ru import LEXICON_RU
 
-# Создаем объекты кнопок
-button_1_1 = KeyboardButton(text="Начать игру")
-button_1_2 = KeyboardButton(text="Правила игры")
-button_2_1 = KeyboardButton(text="Камень")
-button_2_2 = KeyboardButton(text="Ножницы")
-button_2_3 = KeyboardButton(text="Бумага")
+# Объекты кнопок
+button_begin = KeyboardButton(text=LEXICON_RU["begin"])
+button_help = KeyboardButton(text=LEXICON_RU["help"])
+button_rock = KeyboardButton(text=LEXICON_RU["rock"])
+button_paper = KeyboardButton(text=LEXICON_RU["paper"])
+button_scissors = KeyboardButton(text=LEXICON_RU["scissors"])
 
-# Создаем объекты клавиатур, добавляя в них кнопки
-keyboard_1 = ReplyKeyboardMarkup(
-    keyboard=[[button_1_1, button_1_2]],
-    resize_keyboard=True,
-)
-keyboard_2 = ReplyKeyboardMarkup(
-    keyboard=[[button_2_1, button_2_2, button_2_3]],
+# Объект клавиатуры меню
+keyboard_menu = ReplyKeyboardMarkup(
+    keyboard=[[button_begin, button_help]],
     resize_keyboard=True,
 )
 
-# Создаем объект удаления клавиатуры
-keyboard_remove = ReplyKeyboardRemove()
+# Объект клавиатуры игры
+keyboard_game = ReplyKeyboardMarkup(
+    keyboard=[[button_rock, button_paper, button_scissors]],
+    resize_keyboard=True,
+)

@@ -1,36 +1,39 @@
-from aiogram import Bot, Dispatcher
-from config_data.config import Config, load_config
-from handlers import user_handlers
-
 import logging
+
+from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.client.bot import DefaultBotProperties
 
-# Конфигурируем логирование
+from config_data.config import Config, load_config
+from handlers import other_handlers, user_handlers
+
+# Конфигурируация логирования
 logging.basicConfig(
     level=logging.INFO,
     format="%(filename)s:%(lineno)d #%(levelname)-8s "
     "[%(asctime)s] - %(name)s - %(message)s",
 )
 
-# Инициализируем логгер
+# Инициализация логгера
 logger = logging.getLogger(__name__)
 
-# Выводим в консоль информацию о начале запуска бота
+# Вывод в консоль информации о начале запуска бота
 logger.info("Starting bot")
 
-# Загружаем конфиг в переменную config
+# Загрузка конфига в переменную config
 config: Config = load_config()
 
 
-# Инициализируем бот и диспетчер
+# Инициализация бота и диспетчера
+# Указывая parse_mod, мы определяем, что некоторые HTML-теги, поддерживаемые API Telegram, нужно воспринимать именно как HTML-теги
 bot = Bot(
     token=config.tg_bot.token, default=DefaultBotProperties(parse_mode=ParseMode.HTML)
 )
 dp = Dispatcher()
 
-# Регистриуем роутеры в диспетчере
+# Регистрация роутеров в диспетчере
 dp.include_router(user_handlers.router)
+dp.include_router(other_handlers.router)
 
-# Запускаем polling
+# Запуск
 dp.run_polling(bot)
